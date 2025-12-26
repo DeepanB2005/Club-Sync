@@ -17,11 +17,26 @@ const client = new OAuth2Client(CLIENT_ID);
 const app = express();
 const port = 5000;
 
+const allowedOrigins = [
+  'https://club-events.vercel.app',
+  'http://localhost:5173',
+  'http://127.0.0.1:5173'
+];
+
 app.use(cors({
-  origin: "https://club-events.vercel.app",
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+
+    return callback(null, false);
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE']
 }));
+
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 

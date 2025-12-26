@@ -5,7 +5,6 @@ function ClubsShowcase() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Fetch clubs data from backend
   useEffect(() => {
     const fetchClubs = async () => {
       try {
@@ -17,7 +16,9 @@ function ClubsShowcase() {
         const data = await response.json();
         setClubs(data);
         setError(null);
-      } catch (err) {
+      }
+       catch (err) 
+      {
         console.error('Error fetching clubs:', err);
         setError(err.message);
       } finally {
@@ -28,7 +29,6 @@ function ClubsShowcase() {
     fetchClubs();
   }, []);
 
-  // Dynamic category assignment based on club name/description
   const getClubCategory = (club) => {
     const name = club.name?.toLowerCase() || '';
     const desc = club.description?.toLowerCase() || '';

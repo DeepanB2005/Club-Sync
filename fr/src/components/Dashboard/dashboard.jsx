@@ -168,7 +168,6 @@ const DashboardGreetings = () => {
           </div>
         </div>
 
-        {/* Footer Message */}
         <div className="text-center mt-12">
           <p className="text-purple-600 text-lg font-light">
             Start your day with positivity and inspiration! 🌟

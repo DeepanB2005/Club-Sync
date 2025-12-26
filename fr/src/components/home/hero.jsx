@@ -32,7 +32,7 @@ function Hero() {
     const [a,seta]=useState(0);
 
   return (
-    <div class="h-screen flex ">       
+    <div className="h-screen flex ">       
     <div className="hero ml-[200px] mt-60 max-md:ml-20 max-sm:ml-0 w-[600px]">
 
 
@@ -41,7 +41,7 @@ function Hero() {
        >
         Manage our Campus Clubs With Efficiency
       </h1>
-      <p class="text-[17px] text-gray-500">ClubWeb is a comprehensive solution for managing memberships, events, finances, and communications - all in one powerful platform.</p>
+      <p className="text-[17px] text-gray-500">ClubWeb is a comprehensive solution for managing memberships, events, finances, and communications - all in one powerful platform.</p>
         {user ? (
                         <button
                             className="mr-[100px] px-6 py-1 mt-12 shadow-md shadow-gray-500 text-white text-lg font-semibold bg-gradient-to-r from-[#7314f8] to-[#a60886] hover:from-[#8324ff] hover:to-[#b90995] rounded-full transition duration-300 transform hover:scale-105"

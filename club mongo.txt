@@ -1,0 +1,1 @@
+mongodb+srv://Deepan:Club1122@clubevents.p4riqye.mongodb.net/?retryWrites=true&w=majority&appName=ClubEvents
