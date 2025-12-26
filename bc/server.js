@@ -20,7 +20,8 @@ const port = 5000;
 const allowedOrigins = [
   'https://club-events.vercel.app',
   'http://localhost:5173',
-  'http://127.0.0.1:5173'
+  'http://127.0.0.1:5173',
+  'http://localhost:8100'
 ];
 
 app.use(cors({
