@@ -92,16 +92,16 @@ const DashboardGreetings = () => {
         <div className="absolute top-1/2 left-1/3 w-64 h-64 bg-yellow-300/15 rounded-full blur-2xl animate-ping"></div>
       </div>
 
-      <div className="relative z-10 p-8">
+      <div className="relative z-10 p-4 sm:p-8">
         <div className="text-center mb-12">
           <div className="flex items-center justify-center gap-3 mb-4">
-            <Sparkles className="w-12 h-12 text-yellow-400 animate-spin" />
-            <h1 className="text-6xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+            <Sparkles className="w-10 h-10 sm:w-12 sm:h-12 text-yellow-400 animate-spin" />
+            <h1 className="text-4xl sm:text-6xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
               {greeting}!
             </h1>
-            <Sparkles className="w-12 h-12 text-yellow-400 animate-spin" />
+            <Sparkles className="w-10 h-10 sm:w-12 sm:h-12 text-yellow-400 animate-spin" />
           </div>
-          <p className="text-3xl text-purple-700 font-light mb-2">
+          <p className="text-2xl sm:text-3xl text-purple-700 font-light mb-2">
             Welcome back, <span className="font-semibold text-pink-600">{userName}</span>
           </p>
           <p className="text-purple-600 text-lg">
@@ -115,7 +115,7 @@ const DashboardGreetings = () => {
         </div>
 
         <div className="max-w-6xl mx-auto mb-12">
-          <h2 className="text-4xl font-bold text-center text-purple-600 mb-10">Key Features</h2>
+          <h2 className="text-2xl sm:text-4xl font-bold text-center text-purple-600 mb-6 sm:mb-10">Key Features</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {keyFeatures.map((feature, index) => (
               <div
@@ -137,8 +137,8 @@ const DashboardGreetings = () => {
         </div>
 
         <div className="max-w-4xl mx-auto">
-          <div className="bg-white/20 backdrop-blur-lg rounded-3xl p-10 border border-white/30 text-center">
-            <h2 className="text-4xl font-bold text-purple-800 mb-8">Daily Inspiration</h2>
+          <div className="bg-white/20 backdrop-blur-lg rounded-3xl p-6 sm:p-10 border border-white/30 text-center">
+            <h2 className="text-2xl sm:text-4xl font-bold text-purple-800 mb-4 sm:mb-8">Daily Inspiration</h2>
             
             <div className="mb-8 min-h-[120px] flex items-center justify-center">
               {isLoadingQuote ? (
@@ -148,10 +148,10 @@ const DashboardGreetings = () => {
                 </div>
               ) : (
                 <div>
-                  <blockquote className="text-2xl text-purple-800 font-medium italic mb-4 leading-relaxed">
+                  <blockquote className="text-lg sm:text-2xl text-purple-800 font-medium italic mb-4 leading-relaxed">
                     "{quote.text}"
                   </blockquote>
-                  <cite className="text-xl text-purple-600 font-semibold">
+                  <cite className="text-base sm:text-xl text-purple-600 font-semibold">
                     — {quote.author}
                   </cite>
                 </div>

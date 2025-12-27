@@ -1,7 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { PlusCircle, X } from "lucide-react";
 
-function Events({ user, clubs = [], clubsLoading = false }) {
+function Events({
+  user,
+  clubs = [],
+  clubsLoading = false,
+  events = [],
+  eventsLoading = false,
+  eventsError,
+  onEventCreated,
+}) {
   const isLeader = clubs.some(
     (club) => club.leader && club.leader._id === user?._id
   );
@@ -22,25 +30,6 @@ function Events({ user, clubs = [], clubsLoading = false }) {
   const [saving, setSaving] = useState(false);
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
-  const [allEvents, setAllEvents] = useState([]);
-  const [eventsLoading, setEventsLoading] = useState(true);
-
-  // Fetch all events from the DB
-  useEffect(() => {
-    const fetchEvents = async () => {
-      setEventsLoading(true);
-      try {
-        const res = await fetch(`https://club-events-1.onrender.com/api/events`);
-        if (!res.ok) throw new Error("Failed to fetch events");
-        const data = await res.json();
-        setAllEvents(data);
-      } catch (err) {
-        setAllEvents([]);
-      }
-      setEventsLoading(false);
-    };
-    fetchEvents();
-  }, [success]); // refetch after successful event creation
 
   const handleInput = (e) => {
     const { name, value } = e.target;
@@ -91,6 +80,9 @@ function Events({ user, clubs = [], clubsLoading = false }) {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Failed to create event");
       setSuccess("Event created successfully!");
+      if (data && data.event && typeof onEventCreated === "function") {
+        onEventCreated(data.event);
+      }
       setForm({
         title: "",
         description: "",
@@ -246,13 +238,15 @@ function Events({ user, clubs = [], clubsLoading = false }) {
 
       <div className="w-full max-w-6xl mt-8">
         <h2 className="text-2xl font-bold mb-6 text-blue-700 text-center">All Events</h2>
-        {eventsLoading ? (
+        {eventsError ? (
+          <div className="text-lg text-red-500 text-center">{eventsError}</div>
+        ) : eventsLoading ? (
           <div className="text-lg text-gray-600 text-center">Loading events...</div>
-        ) : allEvents.length === 0 ? (
+        ) : !events || events.length === 0 ? (
           <div className="text-lg text-gray-400 text-center">No events found.</div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
-            {allEvents.map(event => (
+            {events.map(event => (
               <div
                 key={event._id}
                 className="bg-white rounded-3xl shadow-xl p-6 flex flex-col items-center border-4 border-blue-100 hover:border-green-300 transition-all"

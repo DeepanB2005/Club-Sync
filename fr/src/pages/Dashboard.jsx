@@ -15,10 +15,13 @@ const Dashboard = () => {
   const [activeMenu, setActiveMenu] = useState('dashboard');
   const [clubs, setClubs] = useState([]);
   const [users, setUsers] = useState([]);
+  const [events, setEvents] = useState([]);
   const [clubsLoading, setClubsLoading] = useState(true);
   const [usersLoading, setUsersLoading] = useState(true);
+  const [eventsLoading, setEventsLoading] = useState(true);
   const [clubsError, setClubsError] = useState(null);
   const [usersError, setUsersError] = useState(null);
+  const [eventsError, setEventsError] = useState(null);
 
   const location = useLocation();
 
@@ -41,9 +44,58 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
-    // Fetch clubs
-    setClubsLoading(true);
-fetch(`https://club-events-1.onrender.com/api/clubs`)
+    // Load cached data from sessionStorage, if available
+    const cachedClubsStr = sessionStorage.getItem('clubs');
+    const cachedUsersStr = sessionStorage.getItem('users');
+    const cachedEventsStr = sessionStorage.getItem('events');
+
+    let hasClubsCache = false;
+    let hasUsersCache = false;
+    let hasEventsCache = false;
+
+    if (cachedClubsStr) {
+      try {
+        const cachedClubs = JSON.parse(cachedClubsStr);
+        if (Array.isArray(cachedClubs)) {
+          setClubs(cachedClubs);
+          setClubsLoading(false);
+          hasClubsCache = true;
+        }
+      } catch {
+        sessionStorage.removeItem('clubs');
+      }
+    }
+
+    if (cachedUsersStr) {
+      try {
+        const cachedUsers = JSON.parse(cachedUsersStr);
+        if (Array.isArray(cachedUsers)) {
+          setUsers(cachedUsers);
+          setUsersLoading(false);
+          hasUsersCache = true;
+        }
+      } catch {
+        sessionStorage.removeItem('users');
+      }
+    }
+
+    if (cachedEventsStr) {
+      try {
+        const cachedEvents = JSON.parse(cachedEventsStr);
+        if (Array.isArray(cachedEvents)) {
+          setEvents(cachedEvents);
+          setEventsLoading(false);
+          hasEventsCache = true;
+        }
+      } catch {
+        sessionStorage.removeItem('events');
+      }
+    }
+
+    // Fetch latest data from API (stale-while-revalidate style)
+
+    if (!hasClubsCache) setClubsLoading(true);
+    fetch(`https://club-events-1.onrender.com/api/clubs`)
       .then(res => {
         if (!res.ok) throw new Error('Failed to fetch clubs');
         return res.json();
@@ -54,10 +106,10 @@ fetch(`https://club-events-1.onrender.com/api/clubs`)
       })
       .catch(err => {
         setClubsError(err.message);
-        setClubsLoading(false);
+        if (!hasClubsCache) setClubsLoading(false);
       });
 
-    setUsersLoading(true);
+    if (!hasUsersCache) setUsersLoading(true);
     fetch(`https://club-events-1.onrender.com/api/users`)
       .then(res => {
         if (!res.ok) throw new Error('Failed to fetch users');
@@ -69,9 +121,54 @@ fetch(`https://club-events-1.onrender.com/api/clubs`)
       })
       .catch(err => {
         setUsersError(err.message);
-        setUsersLoading(false);
+        if (!hasUsersCache) setUsersLoading(false);
       });
-  }, [location.pathname]);
+
+    if (!hasEventsCache) setEventsLoading(true);
+    fetch(`https://club-events-1.onrender.com/api/events`)
+      .then(res => {
+        if (!res.ok) throw new Error('Failed to fetch events');
+        return res.json();
+      })
+      .then(data => {
+        setEvents(data);
+        setEventsLoading(false);
+      })
+      .catch(err => {
+        setEventsError(err.message);
+        if (!hasEventsCache) setEventsLoading(false);
+      });
+  }, []);
+
+  // Keep sessionStorage in sync when data changes
+  useEffect(() => {
+    try {
+      sessionStorage.setItem('clubs', JSON.stringify(clubs));
+    } catch {
+      // ignore quota / serialisation errors
+    }
+  }, [clubs]);
+
+  useEffect(() => {
+    try {
+      sessionStorage.setItem('users', JSON.stringify(users));
+    } catch {
+      // ignore
+    }
+  }, [users]);
+
+  useEffect(() => {
+    try {
+      sessionStorage.setItem('events', JSON.stringify(events));
+    } catch {
+      // ignore
+    }
+  }, [events]);
+
+  const handleEventCreated = (newEvent) => {
+    if (!newEvent) return;
+    setEvents(prev => Array.isArray(prev) ? [...prev, newEvent] : [newEvent]);
+  };
 
   const renderContent = () => {
     const currentUser = getCurrentUser();
@@ -91,6 +188,10 @@ fetch(`https://club-events-1.onrender.com/api/clubs`)
             user={userObj}
             clubs={clubs}
             clubsLoading={clubsLoading}
+            events={events}
+            eventsLoading={eventsLoading}
+            eventsError={eventsError}
+            onEventCreated={handleEventCreated}
           />
         );
       
@@ -120,6 +221,8 @@ fetch(`https://club-events-1.onrender.com/api/clubs`)
             user={userObj}
             clubs={clubs}
             clubsLoading={clubsLoading}
+            events={events}
+            eventsLoading={eventsLoading}
           />
         );
       

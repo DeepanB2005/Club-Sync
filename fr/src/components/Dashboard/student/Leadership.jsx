@@ -3,7 +3,13 @@ import { Crown, Edit3, X } from "lucide-react";
 import ManageMembers from "./ManageMembers";
 import ManageEvents from "./ManageEvents";
 
-const Leadership = ({ user, clubs = [], clubsLoading = false }) => {
+const Leadership = ({
+  user,
+  clubs = [],
+  clubsLoading = false,
+  events = [],
+  eventsLoading = false,
+}) => {
   const [editClubId, setEditClubId] = useState(null);
   const [clubForm, setClubForm] = useState({});
   const [savingClub, setSavingClub] = useState(false);
@@ -11,7 +17,6 @@ const Leadership = ({ user, clubs = [], clubsLoading = false }) => {
   const [eventForm, setEventForm] = useState({});
   const [eventSaving, setEventSaving] = useState(false);
   const [clubEvents, setClubEvents] = useState([]);
-  const [eventsLoading, setEventsLoading] = useState(true);
   const [deletingMember, setDeletingMember] = useState(null);
   const [error, setError] = useState(null);
   const [activeSection, setActiveSection] = useState({}); // { [clubId]: 'members' | 'events' | null }
@@ -23,28 +28,14 @@ const Leadership = ({ user, clubs = [], clubsLoading = false }) => {
     ),
     [clubs, user?._id]
   );
-
+  
   useEffect(() => {
-    const fetchEvents = async () => {
-      setEventsLoading(true);
-      try {
-        const allEvents = [];
-        for (const club of leaderClubs) {
-          const res = await fetch(`https://club-events-1.onrender.com/api/events/club/${club._id}`);
-          if (res.ok) {
-            const data = await res.json();
-            allEvents.push(...data);
-          }
-        }
-        setClubEvents(allEvents);
-      } catch {
-        setClubEvents([]);
-      }
-      setEventsLoading(false);
-    };
-    if (leaderClubs.length > 0) fetchEvents();
-    else setClubEvents([]);
-  }, [leaderClubs]);
+    if (Array.isArray(events)) {
+      setClubEvents(events);
+    } else {
+      setClubEvents([]);
+    }
+  }, [events]);
 
 
   const startEditClub = (club) => {

@@ -74,27 +74,27 @@ function Createclub() {
   };
 
   return (
-    <div className="flex justify-center items-center p-10 max-md:p-5 font-ft flex-col">
-      <div className="flex flex-col items-center">
+    <div className="min-h-screen flex flex-col items-center px-4 py-6 sm:px-6 lg:px-10 font-ft">
+      <div className="flex flex-col items-center text-center sm:text-left">
         <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-[#4361ee] to-[#f72585] rounded-full mb-4 shadow-lg">
           <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
           </svg>
         </div>
-        <h1 className="text-4xl ml-5 font-bold bg-gradient-to-r from-[#4361ee] to-[#f72585] bg-clip-text text-transparent mb-2">
+        <h1 className="text-3xl sm:text-4xl sm:ml-5 font-bold bg-gradient-to-r from-[#4361ee] to-[#f72585] bg-clip-text text-transparent mb-2">
           Create Your Club
         </h1>
       </div>
-      <p className="text-gray-600 dark:text-gray-300 ml-5">
+      <p className="text-gray-600 dark:text-gray-300 sm:ml-5 text-sm sm:text-base text-center sm:text-left">
         Build a community around your passion
       </p>
 
-      <div className="shadow-2xl w-[700px] h-[500px] dark:text-white max-md:h-[9000px] max-md:w-80 max-md:ml-0 mt-5 pt-14 pl-4 rounded-2xl bg-gradient-to-r from-blue-200 to-violet-200 dark:bg-gradient-to-t dark:from-gray-600 dark:to-yellow-800 justify-center items-center">
-        <form className="flex max-md:flex-col  dark:text-white pl-10" onSubmit={handleSubmit}>
-          <div>
-            <div className="w-[80px]">
+      <div className="mt-6 w-full max-w-3xl shadow-2xl dark:text-white rounded-2xl bg-gradient-to-r from-blue-200 to-violet-200 dark:bg-gradient-to-t dark:from-gray-600 dark:to-yellow-800 p-5 sm:p-8 max-h-[75vh] overflow-y-auto">
+        <form className="flex flex-col md:flex-row gap-8 dark:text-white" onSubmit={handleSubmit}>
+          <div className="flex-1">
+            <div className="w-[80px] mx-auto md:mx-0">
               <label htmlFor="profilePhoto" className="cursor-pointer">
-                <div className="w-24 h-24 rounded-full bg-gradient-to-r from-[#4361ee] to-[#f72585] p-1 shadow-lg ml-20">
+                <div className="w-24 h-24 rounded-full bg-gradient-to-r from-[#4361ee] to-[#f72585] p-1 shadow-lg mx-auto md:ml-20">
                   <input
                     type="file"
                     id="profilePhoto"
@@ -125,13 +125,13 @@ function Createclub() {
                 </div>
               </label>
             </div>
-            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1 ml-20">Click to upload</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1 text-center md:text-left md:ml-20">Click to upload</p>
 
             <label className="block text-gray-700 text-lg font-bold mb-2 mt-5 dark:text-white">
               Club Name
             </label>
             <input
-              className="shadow appearance-none border w-60 rounded-2xl py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow appearance-none border w-full max-w-xs rounded-2xl py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="clubName"
               type="text"
               placeholder="Enter club name"
@@ -144,7 +144,7 @@ function Createclub() {
               Select Leader
             </label>
             <select
-              className="appearance-none border rounded-2xl h-10 dark:text-gray-600 bg-gray-100 w-60 p-1 leading-tight shadow-md pl-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="appearance-none border rounded-2xl h-10 dark:text-gray-600 bg-gray-100 w-full max-w-xs p-1 leading-tight shadow-md pl-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               value={clubLeader}
               onChange={e => setClubLeader(e.target.value)}
             >
@@ -177,9 +177,9 @@ function Createclub() {
               </p>
             )}
           </div>
-          <div className="mt-0 h-70 rounded-3xl w-[310px] ml-10 max-md:mr-5">
-            <p>Club Description</p>
-            <div className="h-60 mt-2 bg-gray-100 drop-shadow-md border-gray-900 rounded-3xl">
+          <div className="mt-4 md:mt-0 md:ml-4 flex-1">
+            <p className="font-semibold mb-1">Club Description</p>
+            <div className="h-40 sm:h-60 mt-2 bg-gray-100 drop-shadow-md border-gray-900 rounded-3xl">
               <textarea
                 className="w-full h-full p-3 rounded-3xl dark:text-gray-600 bg-white border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Enter club description"
@@ -194,7 +194,7 @@ function Createclub() {
           </div>
         </form>
         <div className="w-full h-[2px] bg-gradient-to-r from-[#4361ee] to-[#f72585] mt-5 mb-5"></div>
-        <div className="flex justify-center items-center mt-5">
+        <div className="flex justify-center items-center mt-3 mb-1">
           <button
             className="bg-gradient-to-r from-[#4361ee] to-[#f72585] text-white font-bold py-2 px-4 rounded-full shadow-lg hover:shadow-xl transition duration-300"
             type="submit"
