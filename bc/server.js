@@ -22,18 +22,26 @@ const allowedOrigins = [
   'http://localhost:5173',
   'http://127.0.0.1:5173',
   'http://localhost:8100',
-  // Native Capacitor/Ionic apps
-  'capacitor://localhost'
+  // Capacitor Android/iOS WebView served as https
+  'https://localhost',
+  // Native Capacitor/Ionic apps (Android/iOS)
+  'capacitor://localhost',
+  'ionic://localhost'
 ];
 
 app.use(cors({
   origin: (origin, callback) => {
     if (!origin) return callback(null, true);
 
-    if (allowedOrigins.includes(origin)) {
+    if (
+      allowedOrigins.includes(origin) ||
+      origin.startsWith('capacitor://') ||
+      origin.startsWith('ionic://')
+    ) {
       return callback(null, true);
     }
 
+    console.warn('Blocked CORS origin:', origin);
     return callback(null, false);
   },
   credentials: true,
