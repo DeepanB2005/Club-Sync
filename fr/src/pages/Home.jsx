@@ -2,25 +2,25 @@ import Navbar from "../components/home/navbar";
 import Hero from "../components/home/hero";
 import Activities from "../components/home/activities";  
 import ClubsShowcase from "../components/home/clubs";
-import EventsShowcase from "../components/home/events"
-import Aniruth from "../components/bacAni"
+import EventsShowcase from "../components/home/events";
+import Aniruth from "../components/bacAni";
 function Home() {
   return (
-         <div className="text-white font-ft bg-gradient-to-r from-blue-200 to-purple-100 dark:bg-gradient-to-r dark:from-black dark:via-yellow-900 dark:to-black">
+         <div className="text-white font-ft bg-gradient-to-r from-blue-200 to-purple-100 dark:bg-gradient-to-r dark:from-black dark:via-yellow-900 dark:to-black min-h-screen">
               <Aniruth />
               <Navbar />
-      
-      <Hero />
-      <div id="Activities">
-        <Activities />
-      </div>
-      <div id="clubs">
-        <ClubsShowcase />
-      </div>
-      <div id="events">
-        <EventsShowcase />
-      </div>
-      
+      <main className="pt-20 sm:pt-24">
+        <Hero />
+        <section id="Activities">
+          <Activities />
+        </section>
+        <section id="clubs">
+          <ClubsShowcase />
+        </section>
+        <section id="events">
+          <EventsShowcase />
+        </section>
+      </main>
       <footer className="bg-gray-900 text-white py-12 mt-16">
         <div className="container mx-auto px-4 text-center">
           <div className="mb-8">

@@ -21,7 +21,9 @@ const allowedOrigins = [
   'https://club-events.vercel.app',
   'http://localhost:5173',
   'http://127.0.0.1:5173',
-  'http://localhost:8100'
+  'http://localhost:8100',
+  // Native Capacitor/Ionic apps
+  'capacitor://localhost'
 ];
 
 app.use(cors({

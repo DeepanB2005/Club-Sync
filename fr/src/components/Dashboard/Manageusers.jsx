@@ -22,21 +22,21 @@ function Manageusers({ users = [], clubs = [], loading = true, error = null, onD
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center font-ft p-6 bg-gray-50">
+    <div className="min-h-screen flex flex-col items-center font-ft p-4 sm:p-6 bg-gray-50">
       <h1 className="text-4xl font-bold bg-gradient-to-t from-yellow-500 to-red-500 bg-clip-text text-transparent mb-2">
         Manage Users
       </h1>
-      <div className="shadow-2xl w-[900px] h-[600px] dark:text-white max-md:h-[9000px] max-md:w-80 max-md:ml-0 mt-5 pt-10 p-12 rounded-2xl bg-gradient-to-r from-blue-200 to-violet-200 dark:bg-gradient-to-t dark:from-gray-600 dark:to-yellow-800 justify-center items-center">
+      <div className="shadow-2xl w-full max-w-5xl dark:text-white mt-5 pt-6 sm:pt-10 px-4 sm:px-8 pb-6 rounded-2xl bg-gradient-to-r from-blue-200 to-violet-200 dark:bg-gradient-to-t dark:from-gray-600 dark:to-yellow-800 flex flex-col">
         <p className="text-green-500 dark:text-green-400 text-2xl ml-5">
           Manage all users in the system
         </p>
-        <div className="mt-5 overflow-auto h-[550px] w-[500px] rounded-2xl">
+        <div className="mt-5 overflow-auto rounded-2xl max-h-[420px] sm:max-h-[500px]">
           {loading ? (
             <div className="text-gray-500">Loading users...</div>
           ) : error ? (
             <div className="text-red-500">{error}</div>
           ) : (
-            <table className="min-w-full ml bg-gradient-to-r from-red-200 to-yellow-200 dark:bg-gray-800 rounded-lg shadow-md">
+            <table className="min-w-full bg-gradient-to-r from-red-200 to-yellow-200 dark:bg-gray-800 rounded-lg shadow-md text-sm sm:text-base">
               <thead>
                 <tr className="bg-gray-200 dark:bg-gray-700">
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Username</th>
