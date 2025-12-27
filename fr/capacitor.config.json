@@ -1,0 +1,6 @@
+{
+  "appId": "com.club.events",
+  "appName": "Club Events",
+  "webDir": "dist",
+  "bundledWebRuntime": false
+}

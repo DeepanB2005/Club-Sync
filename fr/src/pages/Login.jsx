@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import LoginForm from "../components/forms/LoginForm";
 import SignupForm from "../components/forms/SignupForm";
 import { AnimatePresence, motion } from "framer-motion"
@@ -27,7 +27,7 @@ function Login() {
     phoneNo: ""
   });
 
-  const history = useHistory(); 
+  const navigate = useNavigate(); 
   const handleLoginChange = (e) => {
     setLoginForm({
       ...loginForm,
@@ -84,7 +84,7 @@ function Login() {
       setLoginForm({ email: "", password: "" });
       setShowPassword(false);
 
-      history.push("/");
+      navigate("/");
     } catch (err) {
       console.error("Login error:", err);
       alert("Login failed: " + err.message);
@@ -144,7 +144,7 @@ function Login() {
       });
       setShowPassword(false);
 
-      history.push("/");
+      navigate("/");
     } catch (err) {
       console.error("Signup error:", err);
       console.log("Signup error details:", { signupForm });

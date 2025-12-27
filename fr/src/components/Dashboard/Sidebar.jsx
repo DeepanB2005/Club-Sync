@@ -3,12 +3,12 @@ import {
   X, Home, BarChart3, Users, Settings, Calendar, MessageSquare, ChevronRight,
   User, LogOut, Building2, PlusCircle, Edit, UserPlus, UserCog, Crown, Eye
 } from 'lucide-react';
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = ({ isOpen, toggleSidebar, activeMenu, setActiveMenu }) => {
   const [user, setUser] = useState(null);
   const [isLeader, setIsLeader] = useState(false); // <-- Add this
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
@@ -90,7 +90,7 @@ const Sidebar = ({ isOpen, toggleSidebar, activeMenu, setActiveMenu }) => {
 
   const handleLogout = () => {
     localStorage.removeItem("user");
-    history.push("/");
+    navigate("/");
   };
 
   return (

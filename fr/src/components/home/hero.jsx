@@ -1,4 +1,4 @@
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Carousel from './caurosel';
 function Hero() {
@@ -6,7 +6,7 @@ function Hero() {
   const [user, setUser] = useState(null);
       const [showNavbar, setShowNavbar] = useState(true);
   
-      const history = useHistory();
+      const navigate = useNavigate();
   
       useEffect(() => {
           const storedUser = localStorage.getItem('user');
@@ -15,7 +15,7 @@ function Hero() {
           }
       }, []);
   const handleUserClick = () => {
-        history.push("/Dashboard"); 
+        navigate("/Dashboard"); 
     };
 
 

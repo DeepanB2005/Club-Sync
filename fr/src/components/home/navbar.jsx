@@ -1,4 +1,4 @@
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
 
 
@@ -7,7 +7,7 @@ function Navbar() {
     const [showNavbar, setShowNavbar] = useState(true);
     const lastScrollY = useRef(window.scrollY);
 
-    const history = useHistory();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const storedUser = localStorage.getItem('user');
@@ -35,7 +35,7 @@ function Navbar() {
     }, []);
 
     const handleUserClick = () => {
-        history.push("/Dashboard"); 
+        navigate("/Dashboard"); 
     };
 
     return (
