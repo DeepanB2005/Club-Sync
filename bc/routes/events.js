@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Event = require('../models/Events');
+const Club = require('../models/Club');
 
 // Create a new event
 router.post('/', async (req, res) => {
@@ -68,6 +69,32 @@ router.patch('/:eventId', async (req, res) => {
       return res.status(404).json({ error: 'Event not found' });
     }
     res.json({ message: 'Event updated', event: updatedEvent });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Delete an event
+router.delete('/:eventId', async (req, res) => {
+  try {
+    const event = await Event.findByIdAndDelete(req.params.eventId);
+
+    if (!event) {
+      return res.status(404).json({ error: 'Event not found' });
+    }
+
+    // Remove this event reference from any clubs that list it
+    try {
+      await Club.updateMany(
+        { events: event._id },
+        { $pull: { events: event._id } }
+      );
+    } catch (cleanupErr) {
+      // Log cleanup error but don't fail the main delete
+      console.error('Error cleaning up club events array:', cleanupErr);
+    }
+
+    res.json({ message: 'Event deleted' });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

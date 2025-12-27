@@ -4,6 +4,7 @@ import Sidebar from '../components/Dashboard/Sidebar.jsx';
 import Createclub from '../components/Dashboard/createclub.jsx';
 import ManageClubs from '../components/Dashboard/Manageclubs.jsx'; 
 import Manageusers from '../components/Dashboard/Manageusers.jsx';
+import ManageEventsAdmin from '../components/Dashboard/ManageEventsAdmin.jsx';
 import Leadership from '../components/Dashboard/student/Leadership.jsx';
 import Clubs from '../components/Dashboard/student/clubs.jsx';
 import Events from '../components/Dashboard/student/Events.jsx';
@@ -202,6 +203,16 @@ const Dashboard = () => {
             loading={clubsLoading}
             error={clubsError}
             setClubs={setClubs}
+          />
+        );
+
+      case 'manage-events':
+        return (
+          <ManageEventsAdmin
+            events={events}
+            loading={eventsLoading}
+            error={eventsError}
+            setEvents={setEvents}
           />
         );
       
