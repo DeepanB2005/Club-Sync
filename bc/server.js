@@ -33,8 +33,17 @@ app.use(cors({
   origin: (origin, callback) => {
     if (!origin) return callback(null, true);
 
+    const isLocalNetwork =
+      origin.startsWith('http://localhost') ||
+      origin.startsWith('https://localhost') ||
+      origin.startsWith('http://127.0.0.1') ||
+      origin.startsWith('http://192.168.') ||
+      origin.startsWith('http://10.') ||
+      origin.startsWith('http://172.');
+
     if (
       allowedOrigins.includes(origin) ||
+      isLocalNetwork ||
       origin.startsWith('capacitor://') ||
       origin.startsWith('ionic://')
     ) {
